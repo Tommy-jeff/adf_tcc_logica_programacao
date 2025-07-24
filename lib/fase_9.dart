@@ -4,8 +4,11 @@ void main() {
   final int accessCode = 1234;
   double totalValue = 0;
   int promotion2Count = 0;
+  bool continueProgram = true;
+  int internalAttendance = 0;
+  int automaticAttendance = 0;
 
-  for (var v = 0; v <= 17; v++) {
+  while (continueProgram) {
     print('please teel us your name: ');
     String? name = stdin.readLineSync() as String;
 
@@ -54,6 +57,11 @@ void main() {
       print('Total value: R\$ ${totalValue.toStringAsFixed(2)}\n');
       print('Thank you for your purchase!');
       print('Have a nice day!\n');
+      internalAttendance++;
+
+      print('Go to next? y/n: ');
+      String? readGoToNext = stdin.readLineSync() as String;
+      readGoToNext == 'y' ? continueProgram = true : continueProgram = false;
     } else {
       print('Dear, $name. Welcome to CuidaPet!');
       print('''
@@ -71,11 +79,14 @@ void main() {
   4 - See new services.
   5 - Promotion | 10% off.
   6 - Promotion || 20% off.
+  7 - Exit
   ''');
 
       String? readOption = stdin.readLineSync() as String;
       int option = int.parse(readOption);
       print('You selected the option $option\n');
+
+      automaticAttendance++;
 
       switch (option) {
         case 1:
@@ -102,7 +113,17 @@ void main() {
             'Buy one bath with grooming and hidration and get 20% off in total',
           );
           break;
+        case 7:
+          print('Goodbye!\n');
+          continueProgram = false;
+          break;
+        default:
+          print('Invalid option!\n');
       }
     }
   }
+
+  print('End of program!\n');
+  print('Internal attendance: $internalAttendance');
+  print('Automatic attendance: $automaticAttendance');
 }
